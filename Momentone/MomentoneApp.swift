@@ -9,12 +9,12 @@ import SwiftUI
 
 @main
 struct MomentoneApp: App {
+    let persistenceController = PersistenceController.shared
+
     var body: some Scene {
         WindowGroup {
-            NavigationView {
-                HomeView()
-                    .navigationTitle("Text")
-            }
+            ContentView()
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }
