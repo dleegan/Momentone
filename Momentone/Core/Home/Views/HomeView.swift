@@ -8,138 +8,58 @@
 import SwiftUI
 import CoreData
 
-class NotesViewModel: ObservableObject {
-    let container: NSPersistentContainer
-    @Published var savedEntities: [NoteEntity] = []
-    
-    init() {
-        container = NSPersistentContainer(name: "Momentone")
-        container.loadPersistentStores { (description, error) in
-            if let printableError = error {
-                print("Error Loading Core Data \(printableError)")
-            }
-        }
-        fetchNotes()
-    }
-    
-    func fetchNotes() {
-        let request = NSFetchRequest<NoteEntity>(entityName: "NoteEntity")
-        
-        do {
-            savedEntities = try container.viewContext.fetch(request)
-        } catch let error {
-            print("Error fetching. \(error)")
-        }
-    }
-    
-    func addNote(text: String) {
-        let newNote = NoteEntity(context: container.viewContext)
-        newNote.timestamp = Date()
-        newNote.note = ""
-        newNote.title = text
-        saveData()
-    }
-    
-    func updateNote(entity: NoteEntity, newNote: String) {
-        //let currentNote = entity.note ?? ""
-        //let newNote = currentNote + "!"
-        entity.note = newNote
-        entity.timestamp = Date()
-        saveData()
-    }
-    
-    func deleteNote(indexSet: IndexSet) {
-        guard let index = indexSet.first else {return}
-        let enntity = savedEntities[index]
-        container.viewContext.delete(enntity)
-        saveData()
-    }
-    
-    func saveData() {
-        do {
-            try container.viewContext.save()
-            fetchNotes()
-        } catch let error {
-            print("Error saving. \(error)")
-        }
-    }
-}
-
 struct HomeView: View {
-    @StateObject var vm = NotesViewModel()
+    @Environment(\.managedObjectContext) private var viewContext
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(key: "timestamp", ascending: true)], predicate: nil, animation: .linear)
+    var notes:FetchedResults<Note>
+    
     @State var textFieldText: String = ""
     @State var textNote: String = ""
     
     var body: some View {
-        VStack (spacing: 20) {
-//            TextField("Search Text...", text: $textFieldText)
-//                .padding()
-//                .background(.gray.opacity(0.1))
-//                .cornerRadius(10)
-//
-//            Button {
-//                guard !textFieldText.isEmpty else {return}
-//                vm.addNote(text: textFieldText)
-//                textFieldText = ""
-//            } label: {
-//                Text("Save")
-//                    .font(.headline)
-//                    .fontWeight(.bold)
-//                    .foregroundColor(.white)
-//                    .frame(maxWidth: .infinity)
-//                    .padding(.vertical)
-//                    .background(Color(.blue))
-//                    .cornerRadius(10)
-//            }
-            
+        VStack () {
             List {
-                ForEach (vm.savedEntities) { entity in
+                ForEach (notes.sorted(by: { $0.timestamp! > $1.timestamp! })) { note in
                     NavigationLink {
-                        VStack () {
-                            Text(entity.title ?? "No title")
-                                .fontWeight(.bold)
-                            Text(entity.timestamp!, formatter: itemFormatter)
-                            TextEditor(text: $textNote)
-                            Spacer()
-                        }
-                        .padding(.horizontal)
-                        .onAppear {
-                            //print(entity.note ?? "no note")
-                            textNote = entity.note ?? ""
-                        }
-                        .onDisappear {
-                            //print("Vous revenez à la page précédente. Texte saisi : \($textNote)")
-                            vm.updateNote(entity: entity, newNote: textNote)
-                            textNote = ""
-                        }
+                        EditView(note: note)
                     } label: {
                         VStack (alignment: .leading) {
-                            Text(entity.title ?? "No title")
+                            Text(note.title ?? "No title")
                                 .font(.title3)
                                 .fontWeight(.bold)
-                            Text(entity.note ?? "No note")
-                                .opacity(0.5)
-                                .lineLimit(1)
-                                .truncationMode(.tail)
-                            Text(entity.timestamp!, formatter: itemFormatter)
+                            if ((note.content) != "") {
+                                Text(note.content ?? "No note")
+                                    .opacity(0.5)
+                                    .lineLimit(1)
+                                    .truncationMode(.tail)
+                            }
+                            Text(note.timestamp!, formatter: itemFormatter)
+                                .font(.footnote)
                         }
                     }
                 }
+                .onDelete { indexSet in
+                    guard let index = indexSet.first else {return}
+                    viewContext.delete(notes[index])
+                    try? viewContext.save()
+                }
             }
             .toolbar {
-                ToolbarItem {
+                ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        //guard !textFieldText.isEmpty else {return}
-                        vm.addNote(text: "Note")
-                        textFieldText = ""
-                    } label:  {
-                        Label("Add Item", systemImage: "plus")
-                    }                }
+                        let newNote = Note(context: viewContext)
+                        newNote.id = UUID()
+                        newNote.title = "Nouvelle note"
+                        newNote.content = ""
+                        newNote.timestamp = Date()
+                        try? viewContext.save()
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                }
             }
-            .listStyle(PlainListStyle())
-            
+            //.listStyle(PlainListStyle())
         }
-        .padding()
     }
 }
 
@@ -154,7 +74,7 @@ struct HomeView_Previews: PreviewProvider {
 
 private let itemFormatter: DateFormatter = {
     let formatter = DateFormatter()
-    formatter.dateStyle = .short
+    formatter.dateStyle = .medium
     formatter.timeStyle = .medium
     return formatter
 }()

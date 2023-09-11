@@ -8,14 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		534147E12AA9DF90004B1F60 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534147E02AA9DF90004B1F60 /* HomeView.swift */; };
-		534147E82AAA27A8004B1F60 /* NoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534147E72AAA27A8004B1F60 /* NoteView.swift */; };
 		53D2DC292AA932BE00FC1C54 /* MomentoneApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D2DC282AA932BE00FC1C54 /* MomentoneApp.swift */; };
-		53D2DC2E2AA932BE00FC1C54 /* Momentone.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 53D2DC2C2AA932BE00FC1C54 /* Momentone.xcdatamodeld */; };
 		53D2DC322AA932C000FC1C54 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53D2DC312AA932C000FC1C54 /* Assets.xcassets */; };
 		53D2DC362AA932C000FC1C54 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53D2DC352AA932C000FC1C54 /* Preview Assets.xcassets */; };
 		53D2DC402AA932C000FC1C54 /* MomentoneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D2DC3F2AA932C000FC1C54 /* MomentoneTests.swift */; };
 		53D2DC4A2AA932C000FC1C54 /* MomentoneUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D2DC492AA932C000FC1C54 /* MomentoneUITests.swift */; };
 		53D2DC4C2AA932C000FC1C54 /* MomentoneUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D2DC4B2AA932C000FC1C54 /* MomentoneUITestsLaunchTests.swift */; };
+		53F42B9B2AAA94C900B6904B /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F42B9A2AAA94C800B6904B /* Persistence.swift */; };
+		53F42B9D2AAA96F600B6904B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F42B9C2AAA96F600B6904B /* ContentView.swift */; };
+		53FD39382AAB371900C055E2 /* Momentone.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 53FD39362AAB371900C055E2 /* Momentone.xcdatamodeld */; };
+		53FD393B2AAB37F100C055E2 /* Note+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FD39392AAB37F100C055E2 /* Note+CoreDataClass.swift */; };
+		53FD393C2AAB37F100C055E2 /* Note+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FD393A2AAB37F100C055E2 /* Note+CoreDataProperties.swift */; };
+		53FD393E2AAB3E8000C055E2 /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FD393D2AAB3E8000C055E2 /* EditView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,10 +41,8 @@
 
 /* Begin PBXFileReference section */
 		534147E02AA9DF90004B1F60 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		534147E72AAA27A8004B1F60 /* NoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteView.swift; sourceTree = "<group>"; };
 		53D2DC252AA932BE00FC1C54 /* Momentone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Momentone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53D2DC282AA932BE00FC1C54 /* MomentoneApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentoneApp.swift; sourceTree = "<group>"; };
-		53D2DC2D2AA932BE00FC1C54 /* Momentone.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Momentone.xcdatamodel; sourceTree = "<group>"; };
 		53D2DC312AA932C000FC1C54 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		53D2DC332AA932C000FC1C54 /* Momentone.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Momentone.entitlements; sourceTree = "<group>"; };
 		53D2DC352AA932C000FC1C54 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -49,6 +51,12 @@
 		53D2DC452AA932C000FC1C54 /* MomentoneUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MomentoneUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		53D2DC492AA932C000FC1C54 /* MomentoneUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentoneUITests.swift; sourceTree = "<group>"; };
 		53D2DC4B2AA932C000FC1C54 /* MomentoneUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentoneUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		53F42B9A2AAA94C800B6904B /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		53F42B9C2AAA96F600B6904B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		53FD39372AAB371900C055E2 /* Momentone.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Momentone.xcdatamodel; sourceTree = "<group>"; };
+		53FD39392AAB37F100C055E2 /* Note+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataClass.swift"; sourceTree = "<group>"; };
+		53FD393A2AAB37F100C055E2 /* Note+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		53FD393D2AAB3E8000C055E2 /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,7 +89,8 @@
 			children = (
 				534147E22AA9E0CD004B1F60 /* Components */,
 				534147DD2AA9DF69004B1F60 /* Home */,
-				534147E52AAA2772004B1F60 /* Note */,
+				53F42BA22AAA9CEC00B6904B /* Edit */,
+				53F42B9C2AAA96F600B6904B /* ContentView.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -131,22 +140,6 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		534147E52AAA2772004B1F60 /* Note */ = {
-			isa = PBXGroup;
-			children = (
-				534147E62AAA2795004B1F60 /* Views */,
-			);
-			path = Note;
-			sourceTree = "<group>";
-		};
-		534147E62AAA2795004B1F60 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				534147E72AAA27A8004B1F60 /* NoteView.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
 		53D2DC1C2AA932BE00FC1C54 = {
 			isa = PBXGroup;
 			children = (
@@ -171,12 +164,12 @@
 			isa = PBXGroup;
 			children = (
 				53D2DC282AA932BE00FC1C54 /* MomentoneApp.swift */,
+				53FD39352AAB356D00C055E2 /* Data */,
 				534147E32AA9E32D004B1F60 /* Extensions */,
 				534147E42AA9E339004B1F60 /* Models */,
 				534147DC2AA9DF58004B1F60 /* Core */,
 				53D2DC312AA932C000FC1C54 /* Assets.xcassets */,
 				53D2DC332AA932C000FC1C54 /* Momentone.entitlements */,
-				53D2DC2C2AA932BE00FC1C54 /* Momentone.xcdatamodeld */,
 				53D2DC342AA932C000FC1C54 /* Preview Content */,
 			);
 			path = Momentone;
@@ -205,6 +198,33 @@
 				53D2DC4B2AA932C000FC1C54 /* MomentoneUITestsLaunchTests.swift */,
 			);
 			path = MomentoneUITests;
+			sourceTree = "<group>";
+		};
+		53F42BA22AAA9CEC00B6904B /* Edit */ = {
+			isa = PBXGroup;
+			children = (
+				53F42BA32AAA9CFC00B6904B /* Views */,
+			);
+			path = Edit;
+			sourceTree = "<group>";
+		};
+		53F42BA32AAA9CFC00B6904B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				53FD393D2AAB3E8000C055E2 /* EditView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		53FD39352AAB356D00C055E2 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				53FD39392AAB37F100C055E2 /* Note+CoreDataClass.swift */,
+				53FD393A2AAB37F100C055E2 /* Note+CoreDataProperties.swift */,
+				53F42B9A2AAA94C800B6904B /* Persistence.swift */,
+				53FD39362AAB371900C055E2 /* Momentone.xcdatamodeld */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -338,9 +358,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				53D2DC292AA932BE00FC1C54 /* MomentoneApp.swift in Sources */,
-				534147E82AAA27A8004B1F60 /* NoteView.swift in Sources */,
+				53FD393C2AAB37F100C055E2 /* Note+CoreDataProperties.swift in Sources */,
+				53FD393E2AAB3E8000C055E2 /* EditView.swift in Sources */,
+				53FD393B2AAB37F100C055E2 /* Note+CoreDataClass.swift in Sources */,
+				53F42B9D2AAA96F600B6904B /* ContentView.swift in Sources */,
+				53FD39382AAB371900C055E2 /* Momentone.xcdatamodeld in Sources */,
 				534147E12AA9DF90004B1F60 /* HomeView.swift in Sources */,
-				53D2DC2E2AA932BE00FC1C54 /* Momentone.xcdatamodeld in Sources */,
+				53F42B9B2AAA94C900B6904B /* Persistence.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -698,12 +722,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		53D2DC2C2AA932BE00FC1C54 /* Momentone.xcdatamodeld */ = {
+		53FD39362AAB371900C055E2 /* Momentone.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				53D2DC2D2AA932BE00FC1C54 /* Momentone.xcdatamodel */,
+				53FD39372AAB371900C055E2 /* Momentone.xcdatamodel */,
 			);
-			currentVersion = 53D2DC2D2AA932BE00FC1C54 /* Momentone.xcdatamodel */;
+			currentVersion = 53FD39372AAB371900C055E2 /* Momentone.xcdatamodel */;
 			path = Momentone.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
