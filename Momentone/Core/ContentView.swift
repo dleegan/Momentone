@@ -7,18 +7,16 @@
 
 import SwiftUI
 
-struct ContentView: View {
-    var body: some View {
-        NavigationView {
-            HomeView()
-                .navigationTitle("My Notes")
-        }
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-    }
-}
+//struct ContentView: View {
+//    var body: some View {
+//        NavigationView {
+//            HomeView()
+//                .navigationTitle("My Notes")
+//        }
+//    }
+//}
+//
+//#Preview {
+//    ContentView()
+//        .modelContainer(for: Note.self, inMemory: true)
+//}
