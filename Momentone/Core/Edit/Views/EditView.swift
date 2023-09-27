@@ -8,35 +8,31 @@
 import SwiftUI
 
 struct EditView: View {
-    @Environment(\.managedObjectContext) var viewContext
-    @ObservedObject var note: Note
+    @Environment(\.modelContext) private var modelContext
+    @Bindable var note: Note
     
     @State private var noteTitle: String = ""
     @State private var noteContent: String = ""
     
     var body: some View {
         VStack {
-            Text(note.timestamp!, formatter: itemFormatter)
+            Text(note.timestamp, formatter: itemFormatter)
                 .font(.footnote)
                 .opacity(0.5)
-            TextField("Title", text: $noteTitle)
+            TextField("Title", text: $note.title)
                 .font(.system(size: 25, weight: .bold))
-            TextEditor(text: $noteContent)
+            TextEditor(text: $note.content)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .padding()
         .navigationBarTitle("")
         .navigationBarTitleDisplayMode(.inline)
-        .onAppear {
-            noteTitle = note.title ?? ""
-            noteContent = note.content ?? ""
-        }
-        .onDisappear {
-            note.title = noteTitle
-            note.content = noteContent
-            note.timestamp = Date()
-            try? viewContext.save()
-        }
+//        .onAppear {
+//            noteTitle = note.title
+//            noteContent = note.content
+//        }
+//        .onDisappear {
+//        }
         
     }
 }

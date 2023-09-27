@@ -6,71 +6,85 @@
 //
 
 import SwiftUI
-import CoreData
+import SwiftData
 
 struct HomeView: View {
-    @Environment(\.managedObjectContext) private var viewContext
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(key: "timestamp", ascending: true)], predicate: nil, animation: .linear)
-    var notes:FetchedResults<Note>
+    @Environment(\.modelContext) private var modelContext
+    @Query(sort: [SortDescriptor(\Note.timestamp, order: .reverse)], animation: .default) private var notes: [Note]
     
     @State var textFieldText: String = ""
-    @State var textNote: String = ""
+    @State var showEdit: Bool = false
+    
     
     var body: some View {
-        VStack () {
-            List {
-                ForEach (notes.sorted(by: { $0.timestamp! > $1.timestamp! })) { note in
-                    NavigationLink {
-                        EditView(note: note)
-                    } label: {
-                        VStack (alignment: .leading) {
-                            Text(note.title ?? "No title")
-                                .font(.title3)
-                                .fontWeight(.bold)
-                            if ((note.content) != "") {
-                                Text(note.content ?? "No note")
-                                    .opacity(0.5)
-                                    .lineLimit(1)
-                                    .truncationMode(.tail)
+        NavigationSplitView {
+            VStack () {
+                List {
+                    ForEach (notes) { note in
+                        NavigationLink {
+                            EditView(note: note)
+                        } label: {
+                            VStack (alignment: .leading) {
+                                Text(note.title )
+                                    .font(.title3)
+                                    .fontWeight(.bold)
+                                if ((note.content) != "") {
+                                    Text(note.content )
+                                        .opacity(0.5)
+                                        .lineLimit(1)
+                                        .truncationMode(.tail)
+                                }
+                                Text(note.timestamp, formatter: itemFormatter)
+                                    .font(.footnote)
                             }
-                            Text(note.timestamp!, formatter: itemFormatter)
-                                .font(.footnote)
+                        }
+                    }
+                    .onDelete(perform: deleteItems)
+                }
+                .navigationTitle("Notes")
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button(action: {
+                            showEdit.toggle()
+                        }, label: {
+                            Label("Add Item", systemImage: "plus")
+                        })
+                        .navigationDestination(isPresented: $showEdit) {
+                            let newNote = Note(title: "", content: "", timestamp: Date())
+                            EditView(note: newNote)
+                                .onDisappear {
+                                    modelContext.insert(newNote)
+                                }
                         }
                     }
                 }
-                .onDelete { indexSet in
-                    guard let index = indexSet.first else {return}
-                    viewContext.delete(notes[index])
-                    try? viewContext.save()
-                }
+                //.listStyle(PlainListStyle())
             }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        let newNote = Note(context: viewContext)
-                        newNote.id = UUID()
-                        newNote.title = "Nouvelle note"
-                        newNote.content = ""
-                        newNote.timestamp = Date()
-                        try? viewContext.save()
-                    } label: {
-                        Image(systemName: "plus")
-                    }
-                }
+        } detail: {
+        }
+    }
+    
+    private func addItem() {
+        let newNote = Note(title: "", content: "", timestamp: Date())
+        withAnimation {
+            modelContext.insert(newNote)
+        }
+    }
+    
+    private func deleteItems(offsets: IndexSet) {
+        withAnimation {
+            for index in offsets {
+                modelContext.delete(notes[index])
             }
-            //.listStyle(PlainListStyle())
         }
     }
 }
 
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            HomeView()
-                .navigationTitle("Notes")
-        }
-    }
+#Preview {
+    HomeView()
+        .modelContainer(for: Note.self, inMemory: true)
 }
+
 
 private let itemFormatter: DateFormatter = {
     let formatter = DateFormatter()
